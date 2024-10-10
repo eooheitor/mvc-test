@@ -1,0 +1,20 @@
+{
+    "name": "heitor/crud-test",
+    "autoload": {
+        "psr-4": {
+            "app\\": "app/",
+            "src\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Heitor",
+            "email": "heitor.gb@outlook.com"
+        }
+    ],
+    "require": {
+        "doctrine/orm": "^3",
+        "doctrine/dbal": "^4",
+        "symfony/cache": "^7"
+    }
+}
