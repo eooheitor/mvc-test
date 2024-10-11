@@ -3,6 +3,7 @@
 namespace app\Controller;
 
 use app\Model\Pessoa;
+use app\Model\Contato;
 use Doctrine\ORM\EntityManager;
 use Exception;
 use src\Helpers;
@@ -105,35 +106,16 @@ class ControllerMain
   }
 
   /**
-   * Método para controlar as validações dos forms
-   */
-  protected function validateData($data, $rules)
-  {
-    $errors = [];
-    foreach ($rules as $field => $isRequired) {
-      if ($isRequired && empty($data[$field])) {
-        $errors[] = ucfirst($field) . ' é obrigatório';
-      }
-    }
-    return $errors;
-  }
-
-  /**
    * Método que controlará todo o store dos controllers 
    */
-  protected function storeMain($entityOrClass, $location, $rules)
+  protected function storeMain($entity, $location)
   {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-      $validationErrors = $this->validateData($_POST, $rules);
-      if (!empty($validationErrors)) {
-        echo 'Erros de validação: ' . implode(', ', $validationErrors);
-        return;
-      }
       try {
-        if (is_string($entityOrClass)) {
-          $entity = new $entityOrClass();
+        if (is_string($entity)) {
+          $entity = new $entity();
         } else {
-          $entity = $entityOrClass;
+          $entity = $entity;
         }
         $this->dinamicPost($entity, $_POST);
         $this->entityManager->persist($entity);
@@ -147,9 +129,11 @@ class ControllerMain
       echo 'Método inválido';
     }
   }
+
   /**
    * Método para servir de base para os updates
    */
+
   public function updateMain($class, $location, $id, array $data)
   {
     $entity = $this->entityManager->find($class, $id);
@@ -164,5 +148,25 @@ class ControllerMain
     } catch (Exception $e) {
       echo "Erro ao atualizar entidade: " . $e->getMessage();
     }
+  }
+
+  /**
+   * Método para retornar o id pessoa
+   */
+  protected function getIdClassPessoa($id)
+  {
+    $contato = $this->entityManager->find(Contato::class, $id);
+    return $idPessoa = $contato->getIdPessoa()->getId();
+  }
+
+  /**
+   * Método para setar o id Pessoa
+   */
+  protected function setIdClassPessoa($idPessoa): Contato
+  {
+    $contato = new Contato();
+    $pessoa = $this->entityManager->find(Pessoa::class, $idPessoa);
+    $contato->setIdPessoa($pessoa);
+    return $contato;
   }
 }

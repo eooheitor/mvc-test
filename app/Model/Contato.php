@@ -7,7 +7,6 @@ use app\Model\Pessoa;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'contato')]
-
 class Contato
 {
   #[ORM\Id]
@@ -21,9 +20,11 @@ class Contato
   #[ORM\Column(type: 'string', length: 250)]
   private string $descricao;
 
-  #[ORM\ManyToOne(targetEntity: "app\Model\Pessoa")]
-  #[ORM\JoinColumn(name: "idPessoa", referencedColumnName: "id", nullable: false)]
+  #[ORM\ManyToOne(targetEntity: "app\Model\Pessoa", inversedBy: "contatos")]
+  #[ORM\JoinColumn(name: "idPessoa", referencedColumnName: "id", nullable: false, onDelete: "CASCADE")]
   private Pessoa $idPessoa;
+
+  // Getters e Setters
 
   public function getId(): int
   {

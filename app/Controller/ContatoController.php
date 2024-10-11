@@ -45,20 +45,17 @@ class ContatoController extends ControllerMain
    */
   public function store($idPessoa)
   {
-    $rules = [
-      'descricao' => true,
-    ];
-    $contato = new Contato();
-    $pessoa = $this->entityManager->find(Pessoa::class, $idPessoa);
-    $contato->setIdPessoa($pessoa);
-    $this->storeMain($contato, "/pessoa/{$idPessoa}/contato", $rules);
+    $contato = $this->setIdClassPessoa($idPessoa);
+    $this->storeMain($contato, "/pessoa/{$idPessoa}/contato");
   }
+
   /**
    * Método para deletar um contato 
    */
   public function delete($id)
   {
-    $this->deleteMain($id, Contato::class, "/");
+    $idPessoa = $this->getIdClassPessoa($id);
+    $this->deleteMain($id, Contato::class, "/pessoa/{$idPessoa}/contato");
   }
 
   /**
@@ -84,6 +81,7 @@ class ContatoController extends ControllerMain
    */
   public function update($id, array $data)
   {
-    $this->updateMain(Contato::class, '/', $id, $data);
+    $idPessoa = $this->getIdClassPessoa($id);
+    $this->updateMain(Contato::class, "/pessoa/{$idPessoa}/contato", $id, $data);
   }
 }

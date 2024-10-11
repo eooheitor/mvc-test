@@ -3,6 +3,7 @@
 namespace app\Model;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity]
 #[ORM\Table(name: 'pessoa')]
@@ -14,10 +15,18 @@ class Pessoa
   private int|null $id = null;
 
   #[ORM\Column(type: 'string')]
-  private $nome;
+  private string $nome;
 
-  #[ORM\Column(type: 'string', length: 11, unique: true)]
-  private $cpf;
+  #[ORM\Column(type: 'string', length: 14, unique: true)]
+  private string $cpf;
+
+  #[ORM\OneToMany(mappedBy: "idPessoa", targetEntity: Contato::class, cascade: ["persist", "remove"])]
+  private $contatos;
+
+  public function __construct()
+  {
+    $this->contatos = new ArrayCollection();
+  }
 
   public function getId(): int
   {
@@ -42,5 +51,10 @@ class Pessoa
   public function setCpf(string $cpf): void
   {
     $this->cpf = $cpf;
+  }
+
+  public function getContatos()
+  {
+    return $this->contatos;
   }
 }

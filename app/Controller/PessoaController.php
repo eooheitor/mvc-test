@@ -21,16 +21,7 @@ class PessoaController extends ControllerMain
    */
   public function index($search = null)
   {
-    $repository = $this->entityManager->getRepository("app\Model\\Pessoa");
-    if ($search) {
-      $data = $repository->createQueryBuilder('p')
-        ->where('p.nome LIKE :nome')
-        ->setParameter('nome', '%' . $search . '%')
-        ->getQuery()
-        ->getResult();
-    } else {
-      $data = $this->all('Pessoa');
-    }
+    $data = $search ? $this->filterSearch($search) : $this->all('Pessoa');
     $createUrl = '/pessoa';
     $table = 'pessoa';
     $this->view('ViewPessoa', [
@@ -39,6 +30,19 @@ class PessoaController extends ControllerMain
       'createUrl' => $createUrl,
       'table' => $table
     ]);
+  }
+
+  /**
+   * Método para filtrar pelo nome da pessoa
+   */
+  protected function filterSearch($search)
+  {
+    $repository = $this->entityManager->getRepository("app\Model\\Pessoa");
+    return $repository->createQueryBuilder('p')
+      ->where('p.nome LIKE :nome')
+      ->setParameter('nome', '%' . $search . '%')
+      ->getQuery()
+      ->getResult();
   }
 
   /**
@@ -51,20 +55,31 @@ class PessoaController extends ControllerMain
   }
 
   /**
+   * Método para verificar se o cpf ja existe no bd
+   */
+  protected function isCpfDuplicated($cpf)
+  {
+    $repository = $this->entityManager->getRepository("app\Model\\Pessoa");
+    $existingPessoa = $repository->findOneBy(['cpf' => $cpf]);
+    return $existingPessoa !== null;
+  }
+
+  /**
    * Método para processar o cadastro de uma nova pessoa
    */
   public function store()
   {
-    $rules = [
-      'nome' => true,
-      'cpf' => true
-    ];
-    $this->storeMain(Pessoa::class, '/', $rules);
+    $cpf = $_POST['cpf'];
+    if ($this->isCpfDuplicated($cpf)) {
+      sleep(1);
+      header("Location: /");
+      exit;
+    }
+    $this->storeMain(Pessoa::class, '/');
   }
 
   /**
    * Método para deletar uma pessoa
-   * public porque é chamado no routes
    */
   public function delete($id)
   {
@@ -96,9 +111,4 @@ class PessoaController extends ControllerMain
   {
     $this->updateMain(Pessoa::class, '/', $id, $data);
   }
-
-  /**
-   * Método de pesquisa
-   */
-  public function search() {}
 }
