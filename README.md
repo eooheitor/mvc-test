@@ -26,8 +26,8 @@ Siga os passos abaixo para configurar o ambiente e executar o projeto em sua má
    ```bash
    docker-compose up --build
 5. Acesse o container para criar as tabelas
-  ```bash
-  docker exec -it php-apache-container bash
+   ```bash
+   docker exec -it php-apache-container bash
 6. Crie as tabelas:
    ```bash
    php bin/doctrine orm:schema-tool:create
