@@ -27,7 +27,8 @@ class ContatoController extends ControllerMain
       'columns' => $this->columns,
       'data' => $data,
       'createUrl' => $createUrl,
-      'table' => $table
+      'table' => $table,
+      'idPessoa' => $idPessoa
     ]);
   }
 
@@ -37,7 +38,7 @@ class ContatoController extends ControllerMain
   public function create($id)
   {
     $action = '/pessoa/' . $id . '/contato/store';
-    $this->view('ViewCreateContato', ['columns' => $this->inputs, 'action' => $action]);
+    $this->view('ViewCreateContato', ['columns' => $this->inputs, 'action' => $action, 'edit' => false]);
   }
 
   /**
@@ -69,7 +70,7 @@ class ContatoController extends ControllerMain
       $this->view('ViewCreateContato', [
         'columns' => $this->inputs,
         'action' => $action,
-        'edit' => $contato ?? null
+        'edit' => $contato ?? false
       ]);
     } else {
       echo "Contato não encontrada.";

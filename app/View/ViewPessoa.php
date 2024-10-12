@@ -23,7 +23,7 @@ class ViewPessoa extends ViewMain
     $this->view .= $this->formSearch();
     $this->view .= $this->tableList();
     $this->view .= $this->tHead($columns);
-    $this->view .= $this->tBody($data, $columns, $table, $btnContato = true);
+    $this->view .= $this->tBody($table, true, $data, $columns);
     $this->view .= $this->endTablelist();
     $this->view .= $this->endBody();
   }

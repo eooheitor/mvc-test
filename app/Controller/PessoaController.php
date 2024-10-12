@@ -51,7 +51,7 @@ class PessoaController extends ControllerMain
   public function create()
   {
     $action = '/pessoa/store';
-    $this->view('ViewCreatePessoa', ['columns' => $this->inputs, 'action' => $action]);
+    $this->view('ViewCreatePessoa', ['columns' => $this->inputs, 'action' => $action, 'edit' => false]);
   }
 
   /**
@@ -97,7 +97,7 @@ class PessoaController extends ControllerMain
       $this->view('ViewCreatePessoa', [
         'columns' => $this->inputs,
         'action' => $action,
-        'edit' => $pessoa ?? null
+        'edit' => $pessoa ?? false
       ]);
     } else {
       echo "Pessoa não encontrada.";

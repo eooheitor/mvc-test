@@ -23,7 +23,7 @@ class ViewContato extends ViewMain
     $this->view .= $this->endDivButtons();
     $this->view .= $this->tableList();
     $this->view .= $this->tHead($columns);
-    $this->view .= $this->tBody($data, $columns, $table, $btnContato = false, $idPessoa);
+    $this->view .= $this->tBody($table, false, $data, $columns, $idPessoa);
     $this->view .= $this->endTablelist();
     $this->view .= $this->endBody();
   }

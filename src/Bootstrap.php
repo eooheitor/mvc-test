@@ -4,8 +4,9 @@ use Doctrine\DBAL\DriverManager;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\ORMSetup;
 
-require_once __DIR__ . "/../core/config.php";
-require_once __DIR__ . "/../vendor/autoload.php";
+require __DIR__ . '/../vendor/autoload.php';
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
 
 // Create a simple "default" Doctrine ORM configuration for Attributes
 $config = ORMSetup::createAttributeMetadataConfiguration(
@@ -15,11 +16,11 @@ $config = ORMSetup::createAttributeMetadataConfiguration(
 
 // configuring the database connection
 $connection = DriverManager::getConnection([
-  'dbname'   => DB_NAME,
-  'user'     => DB_USER,
-  'password' => DB_PASS,
-  'host'     => DB_HOST,
-  'driver'   => DB_CONNECTION_TYPE,
+  'dbname'   => $_ENV['DB_NAME'],
+  'user'     => $_ENV['DB_USER'],
+  'password' => $_ENV['DB_PASS'],
+  'host'     => $_ENV['DB_HOST'],
+  'driver'   => $_ENV['DB_CONNECTION_TYPE'],
 ], $config);
 
 // obtaining the entity manager

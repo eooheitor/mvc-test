@@ -109,9 +109,8 @@ class ViewMain
   /**
    * Retorna TBody e tr da table esperando as colunas
    */
-  protected function tBody(array $data = [], array $columns = [], string $table, bool $btnContato)
+  protected function tBody(string $table, bool $btnContato, array $data = [], array $columns = [])
   {
-
     $tbody = '<tbody>';
 
     foreach ($data as $row) {
@@ -141,6 +140,7 @@ class ViewMain
     $tbody .= '</tbody>';
     return $tbody;
   }
+
 
   /**
    * Retorna botões laterais

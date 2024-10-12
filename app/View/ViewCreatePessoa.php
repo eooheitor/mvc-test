@@ -1,7 +1,9 @@
 <?php
 
 namespace app\View;
+
 use app\Model\Pessoa;
+
 /**
  * Classe que irá retornar a view create Pessoa
  * @author Heitor
@@ -14,7 +16,7 @@ class ViewCreatePessoa extends ViewMain
 
   public function __construct($inputs, $action, $edit)
   {
-    $this->setTitle($edit == null ? 'Cadastro de Pessoa' : 'Edição de pessoa');
+    $this->setTitle($edit ? 'Edição de pessoa' : 'Cadastro de Pessoa');
     $this->view = $this->head();
     $this->view .= $this->body();
     $this->view .= $this->form($inputs, $action, $edit);
@@ -31,5 +33,6 @@ class ViewCreatePessoa extends ViewMain
     echo $this->view;
   }
 }
+
 $pessoacreateView = new ViewCreatePessoa($columns, $action, $edit);
 $pessoacreateView->render();
