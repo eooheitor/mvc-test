@@ -35,7 +35,7 @@ Siga os passos abaixo para configurar o ambiente e executar o projeto em sua má
    ```bash
    http://localhost:8080/
 
-### Passos para instalar caso o servidor do PHP
+### Passos para instalar caso use o servidor do PHP
 1. Clone o repositório:
    ```bash
    git clone https://github.com/eooheitor/mvc-test.git
