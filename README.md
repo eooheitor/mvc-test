@@ -53,3 +53,4 @@ Siga os passos abaixo para configurar o ambiente e executar o projeto em sua má
 
 ## Observações
 - Mude o HOST no .env de acordo com o formato de uso.
+- O docker-compose deve carregar automaticamente o arquivo .env, mas se houver um problema, você pode definir as variáveis diretamente no docker-compose.yml
