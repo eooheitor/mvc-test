@@ -16,22 +16,19 @@ Siga os passos abaixo para configurar o ambiente e executar o projeto em sua má
 1. Clone o repositório:
    ```bash
    git clone https://github.com/eooheitor/mvc-test.git
-2. Rode os comandos do composer:
-   ```bash
-   composer update
 
-3. Mude as configurações do arquivo .env que esta dentro da pasta src conforme sua necessidade.
+2. Mude as configurações do arquivo .env que esta dentro da pasta src conforme sua necessidade.
 
-4. Construa e inicie os contêineres:
+3. Construa e inicie os contêineres:
    ```bash
    docker-compose up --build
-5. Acesse o container para criar as tabelas
+4. Abra um novo terminal e acesse o container em execução para criar as tabelas
    ```bash
    docker exec -it php-apache-container bash
-6. Crie as tabelas:
+5. Crie as tabelas:
    ```bash
    php bin/doctrine orm:schema-tool:create
-7. Acesse:
+6. Acesse:
    ```bash
    http://localhost:8080/
 
